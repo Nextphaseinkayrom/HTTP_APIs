@@ -3,12 +3,12 @@ import requests
 # Principais usados >
 link = f"https://jsonplaceholder.typicode.com/posts/"
 
-
 # Menu com ações
 try:
   menu  = int(input("""--- M ---
 1 - Consultar
 2 - Cadastrar
+3 - Update
 Tecla/AL - Sair"""))
 except ValueError:
   print("Ponha o valor exato")
@@ -47,6 +47,36 @@ else:
     resultado = requests.post(link, json=dados)
     print(resultado.status_code)
     print(resultado.json())
+
+ elif menu == 3:
+   try:
+    pnt_pp = int(input("1/2"))
+   except ValueError:
+     print("Epa! Invalido")
+   else:
+    if pnt_pp == 1:
+
+       print("Vamos modificar uma área inteira")
+       try:
+         title_m = input("Title: ")
+         body_m = input("Body: ")
+
+         m = requests.put(f"{link}/1", json={"title": title_m, "body": body_m})
+         print(m.status_code, m.json())
+
+       except ValueError:
+         print("Epa! Invalido. .")
+       else:
+         print("")
+
+
+
+
+
+ elif menu == 4:
+   d = int(input("Id pra deletar"))
+   r = requests.delete(f"{link}/{d}")
+   print(f"ID deletado\n{r.status_code, r.json()}")
 
  else:
   print("Finalizando o programa")
